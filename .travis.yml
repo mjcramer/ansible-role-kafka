@@ -3,7 +3,7 @@ language: python
 python: "2.7"
 
 env:
-  - FOO=foo
+  - ANSIBLE_ROLES_PATH=roles
 
 before_install:
   # Make sure everything's up to date.
@@ -12,6 +12,7 @@ before_install:
 install:
   # Install Ansible.
   - pip install ansible
+  - ansible-galaxy install mjcramer.kafka
 
 script:
   # We'll add some commands to test the role here.
