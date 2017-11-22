@@ -1,0 +1,54 @@
+# roles/kafka/tasks/apply.yml
+---
+- name: apply | add group
+  group:
+    name: "{{ kafka_group }}"
+    system: true
+    state: present
+
+- name: apply | add user
+  user: 
+    name: "{{ kafka_user}}"
+    group: "{{ kafka_group }}"
+    system: true
+    createhome: no
+    home: "{{ kafka.home_dir }}"
+    state: present
+
+- name: apply | create folders
+  file: 
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ kafka_user }}" 
+    group: "{{ kafka_group }}"
+  with_items:
+    - "{{ kafka.conf_dir }}"
+    - "{{ kafka.log_dir }}"
+    - "{{ kafka.lib_dir }}"
+
+- name: apply | download archive
+  get_url:
+    url: "{{ kafka.remote_archive }}" 
+    dest: "{{ kafka.local_archive }}"
+    checksum: "{{ kafka_download_checksum }}"
+    mode: 0644 
+    force: no
+  when: kafka.remote_archive | match("^http.*$")
+  tags:
+    - download
+
+- name: apply | copy from local
+  copy:
+    src: "{{ kafka.remote_archive }}"
+    dest: "{{ kafka.local_archive }}"
+  when: kafka.remote_archive | match("^(?!http).*$")
+
+- name: apply | unpack archive
+  unarchive: 
+    src: "{{ kafka.local_archive }}"
+    dest: "{{ base_home_dir }}"
+    owner: "{{ kafka_user }}"
+    group: "{{ kafka_group}}"
+    copy: no
+    creates: "{{ kafka.home_dir }}"
+

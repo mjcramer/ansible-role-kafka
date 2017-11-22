@@ -1,0 +1,11 @@
+# roles/kafka/tasks/check.yml
+---
+- debug:
+    var: kafka_config_host_name
+
+# TODO This is broken, for some reason it keeps insisting to listen for 127.0.0.1...
+#- name: check | port
+#  wait_for:
+#    host: "{{ kakfa_config_host_name | default('127.0.0.1') }}"
+#    port: "{{ kafka_config_port }}"
+#    delay: 1

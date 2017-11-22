@@ -1,0 +1,14 @@
+# roles/kafka/vars/main.yml
+---
+# Global kafka variables - DO NOT EDIT!
+kafka:
+  local_archive: "{{ download_dir }}/{{ kafka_archive }}"
+  remote_archive: "{{ lookup('env','KAFKA_DOWNLOAD_PATH') | default(kafka_download_path, true) }}/{{ kafka_archive }}"
+  home_dir: "{{ base_home_dir }}/{{ kafka_name }}"
+  conf_dir: "{{ base_conf_dir }}/kafka"
+  log_dir: "{{ base_log_dir }}/kafka"
+  lib_dir: "{{ base_lib_dir }}/kafka"
+  env_file: "{{ base_conf_dir }}/kafka/kafka-env.sh"
+
+
+

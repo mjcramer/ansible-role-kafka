@@ -1,0 +1,34 @@
+###############################################################################
+# Kafka systemd service configuration
+#
+# {{ ansible_managed }}
+#
+###############################################################################
+
+[Unit]
+Description=Apache Kafka Broker
+Documentation=http://kafka.apache.org/
+Requires=network.target
+After=network.target
+ConditionPathExists={{ kafka.conf_dir }}/server.properties 
+ConditionPathExists={{ kafka.lib_dir }}
+ConditionPathExists={{ kafka.log_dir }}
+
+[Service]
+Type=simple
+User={{ kafka_user }}
+Group={{ kafka_group }}
+SyslogIdentifier=kafka
+LimitNOFILE={{ kafka_nofile }}
+{% if java_home is defined %}
+Environment=JAVA_HOME={{ java_home }}
+{% endif %}
+EnvironmentFile={{ kafka.env_file }}
+WorkingDirectory={{ kafka.lib_dir }}
+ExecStart={{ kafka.home_dir }}/bin/kafka-server-start.sh {{ kafka.conf_dir }}/server.properties
+Restart=on-failure
+TimeoutStartSec=60s
+TimeoutStopSec=30s
+
+[Install]
+WantedBy=multi-user.target

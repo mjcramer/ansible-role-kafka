@@ -1,0 +1,42 @@
+# roles/kafka/tasks/configure.yml
+---
+- name: configure | set ulimits
+  template:
+    src: limits.conf.j2
+    dest: /etc/security/limits.d/90-kafka.conf
+    mode: 600
+
+- name: configure | create exec script
+  template: 
+    src: wrapper.sh.j2 
+    dest: "{{ base_daemon_dir }}/kafka-service.sh"
+    mode: 0755
+
+- name: configure | create systemd configuration
+  template: 
+    src: systemd.service.j2 
+    dest: "{{ systemd_service_dir }}/kafka.service"
+    mode: 0644
+  notify: 
+    - reload systemd
+
+- name: configure | create environment configuration
+  template: 
+    src: environment.j2 
+    dest: "{{ kafka.env_file }}"
+  notify:
+    - restart kafka
+
+- name: configure | server configuration
+  template: 
+    src: server.properties.j2 
+    dest: "{{ kafka.conf_dir }}/server.properties"
+  notify:
+    - restart kafka
+
+- name: configure | create logging configuration
+  template: 
+    src: log4j.properties.j2 
+    dest: "{{ kafka.conf_dir }}/log4j.properties"
+  notify:
+    - restart kafka

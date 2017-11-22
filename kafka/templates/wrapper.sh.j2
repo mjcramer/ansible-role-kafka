@@ -1,0 +1,10 @@
+#!/bin/bash
+
+if [ -f {{ kafka.env_file }} ]; then
+    . {{ kafka.env_file }}
+fi
+
+su {{ kafka_user }} -- {{ kafka.home_dir }}/bin/kafka-server-start.sh {{ kafka.conf_dir }}/server.properties 
+
+# This line is here to potentially give the kafka server time to shut down between restarts
+sleep 5

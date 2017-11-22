@@ -1,0 +1,18 @@
+# roles/kafka/tasks/main.yml
+---
+- include: apply.yml
+  tags:
+    - apply
+
+- include: configure.yml
+  tags:
+    - configure
+
+- include: initialize.yml
+  tags:
+    - initialize
+
+- include: check.yml
+  tags:
+    - check
+

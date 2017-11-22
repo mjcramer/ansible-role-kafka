@@ -1,0 +1,45 @@
+# roles/kafka/defaults/main.yml
+---
+scala_version: 2.12
+
+# Server deployment parameters - these control how kafka is deployed
+kafka_version: 0.10.2.0
+kafka_name: "kafka_{{ scala_version | regex_replace('(\\d+)\\.(\\d+).*','\\1.\\2') }}-{{ kafka_version }}"
+kafka_archive: "{{ kafka_name }}.tgz"
+kafka_download_path: "{{ apache_mirror }}/kafka/{{ kafka_version }}"
+kafka_download_checksum: "sha256:4147c809eb91a6941fd17b28fa42a093f57ec01c80a04945e6e7a3fd8d1ec45f"
+kafka_user: kafka
+kafka_group: pipeline
+kafka_nofile: 1048576
+kafka_nproc: 65535
+
+# Server environment configuration - this controls how kafka server is run
+kafka_jvm_heap_init: 256m
+kafka_jvm_heap_max: 512m
+
+# Server configuration parameters - this controls the kafka server configuraiton
+kafka_config_id: 0
+kafka_config_port: "{{ kafka_port | default(9092) }}"
+kafka_config_data_dirs:
+  - "{{ base_lib_dir }}/kafka"
+kafka_config_auto_create_topics_enable: "false"
+kafka_config_num_network_threads: 3
+kafka_config_num_partitions: 2
+kafka_config_default_replication_factor: 1
+kafka_config_log_segment_bytes: 1073741824
+kafka_config_log_retention_check_interval: 300000
+kafka_config_log_retention_hours: 2000
+kafka_config_send_buffer_bytes: 102400
+kafka_config_receive_buffer_bytes: 102400
+kafka_config_num_replica_fetchers: 4
+kafka_config_num_io_threads: 4
+kafka_config_num_recovery_threads_per_data_dir: 2
+kafka_config_zookeeper_connection_timeout_ms: 6000
+kafka_config_socket_request_max_bytes: 104857600
+kafka_config_log_cleaner_enable: "false"
+kafka_config_controlled_shutdown_enable: "true"
+
+# Other defaults
+zookeeper_port: 2181
+
+

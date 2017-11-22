@@ -1,0 +1,6 @@
+# roles/kafka/handlers/main.yml
+---
+- name: restart kafka
+  service: 
+    name: kafka 
+    state: restarted

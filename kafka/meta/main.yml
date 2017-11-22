@@ -1,0 +1,6 @@
+# roles/kafka/meta/main.yml
+---
+dependencies:
+  - role:
+  - role: java
+#  - role: python

@@ -1,0 +1,44 @@
+###############################################################################
+# Kafka runtime configuration
+#
+# {{ ansible_managed }}
+#
+###############################################################################
+
+# Java version for kafka
+{% if java_home is defined %}
+JAVA_HOME={{ java_home }}
+{% else %}
+# JAVA_HOME=/usr/java/default
+{% endif %}
+
+# Heap options for kafka
+KAFKA_HEAP_OPTS="-Xms{{ kafka_jvm_heap_init }} -Xmx{{ kafka_jvm_heap_max }}"
+
+{% if scala_version is defined %}
+# Scala version for kafka
+SCALA_VERSION={{ scala_version }}
+{% endif %}
+
+# Location of kafka installation
+KAFKA_HOME={{ kafka.home_dir }}
+
+# Directory whence kafka shall produce logs
+LOG_DIR={{ kafka.log_dir }}
+
+# Configure log4j for kafka
+KAFKA_LOG4J_OPTS="-Dlog4j.configuration=file:{{ kafka.conf_dir }}/log4j.properties"
+
+# JVM performance options as recommended by linkedin
+KAFKA_JVM_PERFORMANCE_OPTS="-XX:+UseCompressedOops -XX:+DisableExplicitGC -Djava.awt.headless=true -XX:+UseG1GC -XX:MaxGCPauseMillis=20 -XX:InitiatingHeapOccupancyPercent=35"
+
+{% if kafka_jmx_port is defined and kafka_jmx_port -%}
+# JMX Service port number
+JMX_PORT={{ kafka_jmx_port }}
+{% endif %}
+
+# JMX-specific command options
+KAFKA_JMX_OPTS="-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Djava.rmi.server.hostname={{ ansible_fqdn }}"
+
+# Other options for kafka
+#export KAFKA_OPTS=
