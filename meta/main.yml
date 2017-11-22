@@ -1,8 +1,8 @@
 # kafka/meta/main.yml
 ---
 dependencies:
-  - role:
-  - role: java
+  - role: mjcramer.system
+  - role: mjcramer.java
 
 galaxy_info:
   author: Michael Cramer

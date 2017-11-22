@@ -1,7 +1,7 @@
 Kafka Ansible Role
 =========
 
-A brief description of the role goes here.
+An ansible role for installing Apache Kafka
 
 Requirements
 ------------
