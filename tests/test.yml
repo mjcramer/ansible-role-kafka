@@ -1,6 +1,6 @@
 ---
-- hosts: localhost
-  remote_user: root
+- hosts: kafka_hosts
+  become: yes
   roles:
-    - role: mjcramer.kafka
-      become: yes
+    - role: mjcramer.zookeeper
+    - role: ../../ansible-role-kafka

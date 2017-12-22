@@ -3,11 +3,11 @@
 scala_version: 2.12
 
 # Server deployment parameters - these control how kafka is deployed
-kafka_version: 0.10.2.0
+kafka_version: 1.0.0
 kafka_name: "kafka_{{ scala_version | regex_replace('(\\d+)\\.(\\d+).*','\\1.\\2') }}-{{ kafka_version }}"
 kafka_archive: "{{ kafka_name }}.tgz"
 kafka_download_path: "{{ apache_mirror }}/kafka/{{ kafka_version }}"
-kafka_download_checksum: "sha256:4147c809eb91a6941fd17b28fa42a093f57ec01c80a04945e6e7a3fd8d1ec45f"
+kafka_download_checksum: "sha256:d5b1d00752252d9c129e9284f26f8280e9899dd374167f257e29d5346eb544b3"
 kafka_user: kafka
 kafka_group: pipeline
 kafka_nofile: 1048576
@@ -18,7 +18,7 @@ kafka_jvm_heap_init: 256m
 kafka_jvm_heap_max: 512m
 
 # Server configuration parameters - this controls the kafka server configuraiton
-kafka_config_id: 0
+kafka_config_broker_id: 0
 kafka_config_port: "{{ kafka_port | default(9092) }}"
 kafka_config_data_dirs:
   - "{{ base_lib_dir }}/kafka"
