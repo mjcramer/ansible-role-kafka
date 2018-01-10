@@ -1,6 +1,44 @@
 ---
+    - name: build docker image
+      docker:
+        image: "ubuntu:16.04"
+        name: "ubuntu-16.04-test"
+        state: "reloaded"
+        docker_url: "{{ docker_host_url }}"
+        use_tls: "encrypt"
+        command: sleep 5m
+      environment:
+        DOCKER_CERT_PATH: "{{ docker_host_cert_path }}"
+      # register the running container
+      register: docker_result
+
+    - name: add new docker connection {{ docker_result.ansible_facts.docker_containers[0].Config.Hostname }} to docker-container inventory group
+      add_host:
+        name: "{{ docker_result.ansible_facts.docker_containers[0].Config.Hostname }}"
+        groups: "docker-container"
+        ansible_connection: docker
+        ansible_ssh_user: "root"
+        ansible_become_user: "root"
+        ansible_become: "yes"
+
+
 - hosts: kafka_hosts
   become: yes
   roles:
     - role: mjcramer.zookeeper
     - role: ../../ansible-role-kafka
+
+
+
+
+
+
+
+# setup the new machine using ansible instead of docker
+- hosts: docker-container
+  tasks:
+
+    - name: install vi
+      yum:
+        name: vi
+        state: present

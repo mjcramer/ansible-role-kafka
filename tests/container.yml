@@ -1,0 +1,19 @@
+---
+
+- hosts: localhost
+  connection: local
+  gather_facts: no
+
+#  vars:
+#    # workaround error "docker-py is needed for this module"
+#    ansible_python_interpreter: "/usr/bin/env python"
+
+  tasks:
+
+  - name: container | pull ubuntu-16.04 image
+    docker_image:
+      name: ubuntu:16.04
+
+#  - name: container | pull centos-7 image
+#    docker_image:
+#      name: pacur/centos-7
