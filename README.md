@@ -1,5 +1,6 @@
 Kafka Ansible Role
-=========
+=================
+[![Build Status](https://travis-ci.org/mjcramer/ansible-role-kafka.svg?branch=master)](https://travis-ci.org/mjcramer/ansible-role-kafka) [![Ansible Galaxy](https://img.shields.io/badge/ansible--galaxy-mjcramer.java-blue.svg)](https://galaxy.ansible.com/mjcramer/kafka/) 
 
 An ansible role for installing Apache Kafka
 
@@ -26,6 +27,7 @@ Tags
 - initialize
 - check
 
+
 Example Playbook
 ----------------
 
@@ -33,14 +35,15 @@ Including an example of how to use your role (for instance, with variables passe
 
     - hosts: servers
       roles:
-         - { role: mjcramer.kafka, x: 42 }
+         - { role: mjcramer.kafka, kafka_version: 1.0 }
 
 License
 -------
 
 Unlicensed
 
+
 Author Information
 ------------------
 
-Michael J. Cramer (github: mjcramer), michael@cramer.name
+[Michael Cramer](http://michael.cramer.name), *michael@cramer.name* [_mjcramer_](http://github.com/mjcramer)
