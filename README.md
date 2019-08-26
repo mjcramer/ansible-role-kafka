@@ -1,6 +1,6 @@
 Kafka Ansible Role
 =================
-[![Build Status](https://travis-ci.org/mjcramer/ansible-role-kafka.svg?branch=master)](https://travis-ci.org/mjcramer/ansible-role-kafka) [![Ansible Galaxy](https://img.shields.io/badge/ansible--galaxy-mjcramer.java-blue.svg)](https://galaxy.ansible.com/mjcramer/kafka/) 
+[![Build Status](https://travis-ci.org/mjcramer/ansible-role-kafka.svg?branch=master)](https://travis-ci.org/mjcramer/ansible-role-kafka) [![Ansible Galaxy](https://img.shields.io/badge/ansible--galaxy-mjcramer.kafka-blue.svg)](https://galaxy.ansible.com/mjcramer/kafka/) 
 
 An ansible role for installing Apache Kafka
 
@@ -12,7 +12,11 @@ Any pre-requisites that may not be covered by Ansible itself or the role should 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+Currently, the oracle and openjdk JVMs are supported. 
+
+| Name | Value |
+| --- | --- |
+| kafka_version | 1.0, 2.0 |
 
 Dependencies
 ------------

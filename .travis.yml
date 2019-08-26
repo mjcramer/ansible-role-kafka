@@ -8,11 +8,11 @@ before_install:
 install:
 - pip3 install ansible pyopenssl cryptography
 before_script:
-- make setup
+- make setup ADD_ANSIBLE_PLAYBOOK_OPTS="--extra-vars host_name=ansible-kafka-travis-$TRAVIS_JOB_ID"
 script:
 - make install ADD_ANSIBLE_PLAYBOOK_OPTS="--syntax-check"
 - make install
-- 'make install | grep -q ''changed=0.*failed=0'' && (echo ''Idempotence: PASS'' && exit 0) || (echo ''Idempotence: FAIL'' && exit 1)'
+- 'make install 2>/dev/null | ./tests/idempotence_check.sh'
 after_script:
 - make teardown
 notifications:

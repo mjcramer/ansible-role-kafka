@@ -31,7 +31,8 @@
   hosts: kafka_hosts
 
   vars_files:
-    - common.yml
+    - vars/common.yml
+    - vars/local.yml
 
   roles:
     - role: ../../ansible-role-kafka
@@ -39,4 +40,4 @@
 
   tasks:
     - debug:
-        var: Kafka_version
+        var: kafka_version

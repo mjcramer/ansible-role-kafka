@@ -5,8 +5,9 @@
   connection: local
 
   vars_files:
-    - common.yml
-    - secret.yml
+    - vars/common.yml
+    - vars/local.yml
+    - vars/secret.yml
 
   vars:
     os_images:
@@ -49,7 +50,7 @@
       digital_ocean_droplet:
         state: present
         name: "{{ host_name }}-{{ item }}"
-        unique_name: no
+        unique_name: yes
         size: 2gb
         region: sfo2
         image: "{{ os_images[item] }}"
@@ -77,5 +78,4 @@
       template:
         src: inventory.yml.j2
         dest: "{{ cache_dir }}/inventory.yml"
-
 
