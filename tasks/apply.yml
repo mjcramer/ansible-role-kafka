@@ -25,15 +25,17 @@
     - "{{ kafka.conf_dir }}"
     - "{{ kafka.log_dir }}"
     - "{{ kafka.lib_dir }}"
+    - "{{ kafka.run_dir }}"
 
 - name: apply | download archive
   get_url:
     url: "{{ kafka.remote_archive }}" 
     dest: "{{ kafka.local_archive }}"
-    checksum: "{{ kafka_download_checksum }}"
+    # Kafka sha512 checksum is in a weird format. 
+    # checksum: "{{ kafka_algorithm }}:{{ kafka.remote_sha }}"
     mode: 0644 
     force: no
-  when: kafka.remote_archive | match("^http.*$")
+  when: kafka.remote_archive is match("^http.*$")
   tags:
     - download
 
@@ -41,7 +43,7 @@
   copy:
     src: "{{ kafka.remote_archive }}"
     dest: "{{ kafka.local_archive }}"
-  when: kafka.remote_archive | match("^(?!http).*$")
+  when: kafka.remote_archive is match("^(?!http).*$")
 
 - name: apply | unpack archive
   unarchive: 
@@ -51,4 +53,10 @@
     group: "{{ kafka_group}}"
     copy: no
     creates: "{{ kafka.home_dir }}"
+
+- name: apply | link home dir
+  file:
+    src: "{{ kafka.home_dir }}"
+    dest: "{{ kafka.link_dir }}"
+    state: link
 

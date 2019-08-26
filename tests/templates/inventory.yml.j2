@@ -9,7 +9,7 @@
 
 {% endfor %}
 
-zookeeper_hosts: 
+kafka_hosts: 
   children:
     {% for os, image in os_images.items() -%}
     {{ os }}:

@@ -12,7 +12,7 @@ before_script:
 script:
 - make install ADD_ANSIBLE_PLAYBOOK_OPTS="--syntax-check"
 - make install
-- 'make install 2>/dev/null | ./tests/idempotence_check.sh'
+- make install 2>/dev/null | ./tests/idempotence_check.sh
 after_script:
 - make teardown
 notifications:

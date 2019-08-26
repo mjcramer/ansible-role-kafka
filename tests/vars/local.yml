@@ -1,5 +1,5 @@
 ---
-host_name: ansible-zookeeper-{{ host_name_suffix | default(lookup('env','USER') | default('dev')) }}
+host_name: ansible-kafka-{{ host_name_suffix | default(lookup('env','USER') | default('dev')) }}
 
 apache_mirror: http://us.mirrors.quenda.co/apache
 jvm_provider: openjdk

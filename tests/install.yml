@@ -35,6 +35,7 @@
     - vars/local.yml
 
   roles:
+    - ../mjcramer.zookeeper
     - role: ../../ansible-role-kafka
       become: yes
 

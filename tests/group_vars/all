@@ -1,0 +1,2 @@
+---
+zookeeper_hosts: "{{ groups['kafka_hosts'] }}"

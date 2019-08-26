@@ -5,9 +5,9 @@ export ANSIBLE_PLAYBOOK_OPTS := \
 export ANSIBLE_CONFIG := tests/ansible.cfg 
 
 ifdef DISTROS
-	ANSIBLE_PLAYBOOK_OPTS += --extra-vars=distros=$(DISTROS)
+	ANSIBLE_PLAYBOOK_OPTS += --extra-vars distros=$(DISTROS)
 else
-	ANSIBLE_PLAYBOOK_OPTS += --extra-vars=distros=ubuntu,debian,fedora
+	ANSIBLE_PLAYBOOK_OPTS += --extra-vars distros=ubuntu,debian,fedora
 endif
 
 ifdef ADD_ANSIBLE_PLAYBOOK_OPTS
@@ -17,7 +17,7 @@ endif
 .PHONY: setup teardown ip ping
 
 setup:
-	ANSIBLE_CONFIG=${ANSIBLE_CONFIG} ansible-galaxy install mjcramer.system mjcramer.java
+	ANSIBLE_CONFIG=${ANSIBLE_CONFIG} ansible-galaxy install mjcramer.system mjcramer.java mjcramer.zookeeper
 	ANSIBLE_CONFIG=${ANSIBLE_CONFIG} ansible-playbook \
 		$(ANSIBLE_PLAYBOOK_OPTS) \
 		--inventory localhost, \
